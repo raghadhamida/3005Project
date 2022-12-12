@@ -83,5 +83,47 @@ INSERT INTO accesses
 VALUES ('admin@sample.com', 1);
 
 
+      --UPDATE STATEMENTS--
 
+-- updating user to become an admin
+UPDATE user1 
+SET admin = true,
+WHERE email='johndoe@sample.com';
+
+--if a user decides to update their billing info
+UPDATE billingInfo 
+SET billingID=4545, cardNumber = 459087605988, nameOnCard='sampleName', expDate='mm/yy', CVC=343
+WHERE billingID=1;
+
+--if a user decides to update their address
+UPDATE address 
+SET addressID=6664, streetNumber = 6787, streetName='name street', City='Ottawa', Country='Canada', postalCode='K3R 7I5'
+WHERE addressID=1;
+
+
+--update the quantity of a book that the user would like to add to the basket **this updates and adds to the quantity each time the user adds to basket**
+UPDATE addToBasket 
+SET quantity=quantity+1, --adds one each time user adds more of the book
+WHERE isbn=98745608;
+
+--update the stock and sales of book in the warehouse each time a book is added
+UPDATE warehouse 
+SET stock=stock+1, monthSales=monthSales+salesPercent*book.price, --adds one each time a book is added to warehouse
+WHERE storageID=1;
+
+--updates the sales/expenditure value in the general report when sales and expenditure change after a month 
+UPDATE generalReport
+SET salesVsExpenditures=salesVsExpenditures+warehouse.monthSales/warehouse.expenditureValue,
+WHERE reportID=1;
+
+--updates the sales value in the author report when sales change 
+UPDATE authorReport
+SET salesValue=salesValue+98,
+WHERE author='F. Scott Fitzgerald';
+
+
+--updates the sales value in the genre report when sales change 
+UPDATE genreReport
+SET salesValue=salesValue+98,
+WHERE genre='Fiction';
 
